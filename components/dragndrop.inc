@@ -27,7 +27,7 @@ function _webform_defaults_dragndrop() {
         'addextensions' => '',
         'size' => '2 MB',
       ),
-      'scheme' => 'private',
+      'scheme' => 'public',
       'directory' => '',
       'progress_indicator' => 'throbber',
       'title_display' => 0,
