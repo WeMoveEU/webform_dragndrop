@@ -1,0 +1,60 @@
+// Drag and drop.
+.field-widget-dragndrop-upload-file .droppable {
+  width: 100%;
+  border-radius: 8px;
+  background-color: grey;
+  padding: 2px;
+  border: 1px dashed grey;
+  text-align: center;
+  margin: 5px 0;
+}
+
+ .field-widget-dragndrop-upload-file .droppable-message {
+  text-align: center;
+  color: black;
+  line-height: 75px;
+}
+
+.field-widget-dragndrop-upload-file .file,
+.field-widget-dragndrop-upload-file .file-size,
+.field-widget-dragndrop-upload-file .form-submit {
+  display: none;
+}
+
+.webform-file-list {
+  border: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.webform-file-list li {
+  background-color: blue;
+  padding: 18px 40px 18px 25px;
+  margin-bottom: 20px;
+}
+
+.webform-file-list li .remove-link {
+  color: #fff;
+  font-style: italic;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.webform-file-list li span {
+  position: relative;
+  top: 25%;
+}
+
+.webform-file-list li .upload-component {
+  float: right;
+}
+
+.webform-file-list li .upload-component a {
+  padding-left: 10px;
+  color: #fff;
+}
+
+.webform-file-list li .upload-component a:hover,
+.webform-file-list li .upload-component a:focus {
+  text-decoration: underline;
+}

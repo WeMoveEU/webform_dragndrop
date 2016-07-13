@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Add a dragndrop webform component.
+ */
+
+/**
+ * Implements hook_webform_component_info.
+ */
+function webform_dragndrop_webform_component_info() {
+  $components = array();
+  $components['dragndrop'] = array(
+    'label' => t('Drag and drop upload element'),
+    'description' => t('An element to allow a user to drag and drop files.'),
+    'features' => array(
+      'required' => FALSE,
+      'attachment' => TRUE,
+    ),
+    'file' => 'components/dragndrop.inc',
+  );
+
+  return $components;
+}
