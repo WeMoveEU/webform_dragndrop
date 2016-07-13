@@ -25,13 +25,13 @@
 
         // We can only upload one file with a webform file input, so disable the
         // drag and drop element if a file already exists.
-        $dropZone.addClass('ui-state-disabled');
+        $dropZone.addClass('disabled');
 
         var $file = $('.webform-component-dragndrop .file a');
         var href = $file.attr('href');
         var filename = $file.html();
 
-        var cvRow = '<li"><span class="uploaded-file"><a class="file-view-link" target="_blank" href="' + href + '">' + filename + '</a></span>\n\
+        var cvRow = '<li><span class="uploaded-file"><a class="file-view-link" target="_blank" href="' + href + '">' + filename + '</a></span>\n\
           <span class="upload-component"><a class="remove-link webform-file managed-file dnd" href="javascript:void(0);" onclick="removeWebformFile(this)">' + Drupal.t('Remove') + '</a>\n\
           <a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
 
@@ -55,7 +55,7 @@
 
       // Trigger the file upload.
       $inputFile.on('drop', function(e) {
-        if (fileLimitReached() || $dropZone.hasClass('ui-state-disabled')) {
+        if ($dropZone.hasClass('disabled')) {
           return false;
         }
 
@@ -63,24 +63,37 @@
           $('.webform-component-dragndrop input[value=Upload]').mousedown();
         }, 100);
       });
+
+      // Remove an uploaded File from a webform component.
+      removeWebformFile = function(element) {
+        var $link = $(element).closest('li');
+
+        var href = $link.find('.file-view-link').attr('href');
+
+        // The target link.
+        var $target = $(".webform-component-dragndrop .file a[href='" + href + "']");
+
+        // Remove the file from the field.
+        var $submit = $target.closest('.form-managed-file').find('.form-submit[value="Remove"]');
+        $submit.mousedown();
+
+        // Remove the file link from the list.
+        $link.remove();
+      }
+
+      // Common function to remove duplicates from a file list.
+      removeDuplicates = function() {
+        var duplicates = {};
+        $('.file-view-link').each(function() {
+          var index = $(this).attr('href');
+          if (duplicates[index]) {
+            $(this).closest('li').remove();
+          }
+          else {
+            duplicates[index] = true;
+          }
+        });
+      }
     }
   };
 }(jQuery));
-
-// Remove an uploaded File from a webform component.
-function removeWebformFile(element) {
-  var $link = $(element).closest('li');
-
-  var href = $link.find('.file-view-link').attr('href');
-
-  // The target link.
-  var $target = $('.webform-component-dragndrop .file a[href='" + href + "']');
-
-  // Remove the file from the field.
-  var $submit = $target.closest('.form-managed-file').find('.form-submit[value="Remove"]');
-  $submit.mousedown();
-
-  // Remove the file link from the list.
-  $link.remove();
-}
-

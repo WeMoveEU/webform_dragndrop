@@ -17,7 +17,13 @@ function _webform_defaults_dragndrop() {
     'weight' => 0,
     'extra' => array(
       'filtering' => array(
-        'types' => array('txt pdf docx doc rtf'),
+        'types' => array(
+          'txt',
+          'pdf',
+          'docx',
+          'doc',
+          'rtf'
+        ),
         'addextensions' => '',
         'size' => '2 MB',
       ),
@@ -37,6 +43,8 @@ function _webform_defaults_dragndrop() {
  * Implements _webform_edit_component().
  */
 function _webform_edit_dragndrop($component) {
+    module_load_include('inc', 'webform', 'components/file');
+
     $form = array();
     $form['#element_validate'] = array('_webform_edit_file_check_directory');
     $form['#after_build'] = array('_webform_edit_file_check_directory');
@@ -181,6 +189,7 @@ function _webform_edit_dragndrop_size_validate($element) {
 function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
 
+  // TODO admin setting for this.
   $upload_text = variable_get('webform_drag_and_drop_upload_text', 'or drag and drop a file here');
 
   $js_setting = array(
@@ -188,9 +197,6 @@ function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   );
 
   drupal_add_js($js_setting, 'setting');
-
-  drupal_add_js(drupal_get_path('module', 'mp_file_upload') . '/js/webform_drag_and_drop.js');
-  drupal_add_js(drupal_get_path('module', 'mp_utilities') . '/js/mp_utilities_file_uploads.js');
 
   // Cap the upload size according to the PHP limit.
   $max_filesize = parse_size(file_upload_max_size());

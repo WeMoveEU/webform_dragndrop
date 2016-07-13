@@ -1,17 +1,20 @@
-// Drag and drop.
 .field-widget-dragndrop-upload-file .droppable {
   width: 100%;
   border-radius: 8px;
-  background-color: grey;
+  background-color: #F5F5F5;
   padding: 2px;
-  border: 1px dashed grey;
+  border: 1px dashed #BCBEC0;
   text-align: center;
   margin: 5px 0;
 }
 
- .field-widget-dragndrop-upload-file .droppable-message {
+.field-widget-dragndrop-upload-file .droppable.disabled {
+  opacity: 0.35;
+}
+
+.field-widget-dragndrop-upload-file .droppable-message {
   text-align: center;
-  color: black;
+  color: #706F6F;
   line-height: 75px;
 }
 
@@ -28,9 +31,14 @@
 }
 
 .webform-file-list li {
-  background-color: blue;
+  background-color: #124395;
   padding: 18px 40px 18px 25px;
   margin-bottom: 20px;
+  list-style: none;
+}
+
+.webform-file-list li a {
+  color: #fff;
 }
 
 .webform-file-list li .remove-link {

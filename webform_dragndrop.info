@@ -3,5 +3,6 @@ description = "Add a Dragndrop component to webform."
 core = 7.x
 package = Webform
 dependencies[] = webform
+dependencies[] = jquery_update
 scripts[] = js/webform_dragndrop.js
 stylesheets[all][] = css/webform_dragndrop.css
