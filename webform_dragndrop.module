@@ -27,7 +27,7 @@ function webform_dragndrop_webform_component_info() {
  */
 function webform_dragndrop_menu() {
   $items['admin/config/webform-dragndrop-settings'] = array(
-    'title' => 'Webform drag and drop settings',
+    'title' => 'Webform dragndrop settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('webform_dragndrop_settings'),
     'access arguments' => array('administer site configuration'),

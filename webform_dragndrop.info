@@ -1,4 +1,4 @@
-name = Webform Dragndrop
+name = Webform dragndrop
 description = "Add a dragndrop component to webform."
 core = 7.x
 package = Webform

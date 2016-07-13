@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Webform drag and drop config.
+ * Webform dragndrop config.
  */
 
 /**

@@ -188,8 +188,6 @@ function _webform_edit_dragndrop_size_validate($element) {
  */
 function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
-
-  // TODO admin setting for this.
   $upload_text = variable_get('webform_drag_and_drop_upload_text', 'or drag and drop a file here');
 
   $js_setting = array(
