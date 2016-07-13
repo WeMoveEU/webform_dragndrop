@@ -21,3 +21,19 @@ function webform_dragndrop_webform_component_info() {
 
   return $components;
 }
+
+/**
+ * Implements hook_menu().
+ */
+function webform_dragndrop_menu() {
+  $items['admin/config/webform-dragndrop-settings'] = array(
+    'title' => 'Webform drag and drop settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('webform_dragndrop_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'webform_dragndrop.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}

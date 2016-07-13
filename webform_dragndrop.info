@@ -1,7 +1,9 @@
 name = Webform Dragndrop
-description = "Add a Dragndrop component to webform."
+description = "Add a dragndrop component to webform."
 core = 7.x
 package = Webform
+configure = admin/config/webform-dragndrop-settings
+
 dependencies[] = webform
 dependencies[] = jquery_update
 scripts[] = js/webform_dragndrop.js
