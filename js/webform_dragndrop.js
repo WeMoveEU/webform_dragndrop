@@ -53,12 +53,20 @@
         $inputFile.offset({ top: y - 15, left: x - 100 })
       });
 
-      // Trigger the file upload.
-      $inputFile.on('drop', function(e) {
+      // Launch the file browser if a user clicks inside the droppable area.
+      $dropZone.on('click', function() {
+        $(this).closest('.form-managed-file').find('input[type=file]').click();
+      });
+
+      // Prevent file upload if the element is disabled.
+      $inputFile.on('drop', function() {
         if ($dropZone.hasClass('disabled')) {
           return false;
         }
+      });
 
+      // When a file has been added, upload it.
+      $('.webform-component-dragndrop input.form-file').change(function() {
         setTimeout(function() {
           $('.webform-component-dragndrop input[value=Upload]').mousedown();
         }, 100);
