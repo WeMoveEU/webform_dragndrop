@@ -54,7 +54,7 @@
       });
 
       // Launch the file browser if a user clicks inside the droppable area.
-      $dropZone.on('click', function() {
+      $dropZone.off().on('click', function() {
         $(this).closest('.form-managed-file').find('input[type=file]').click();
       });
 
