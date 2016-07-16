@@ -352,7 +352,7 @@ function _webform_csv_data_dragndrop($component, $export_options, $value) {
 /**
  * A function to load a file.
  *
- *  @param string $fid
+ * @param string $fid
  *   A file id.
  */
 function webform_get_dragnrop_file($fid) {

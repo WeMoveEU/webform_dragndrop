@@ -2,6 +2,7 @@
  * @file
  * JS for the webform dragndrop component.
  */
+
 (function ($) {
 
   /**
@@ -24,7 +25,7 @@
       }
 
       // Hide the input controls.
-      $element.find('input').css({'position': 'absolute', 'opacity': '0'});
+      $element.find('input').css({position: 'absolute', opacity: '0'});
       $element.find('.form-submit, .file').addClass('element-invisible');
 
       // Build the droppable area.
@@ -89,7 +90,7 @@
       });
 
       // Remove an uploaded File from a webform component.
-      removeWebformFile = function (element) {
+      var removeWebformFile = function (element) {
         var $link = $(element).closest('li');
 
         var href = $link.find('.file-view-link').attr('href');
@@ -106,7 +107,7 @@
       };
 
       // Common function to remove duplicates from a file list.
-      removeDuplicates = function () {
+      var removeDuplicates = function () {
         var duplicates = {};
         $('.file-view-link').each(function () {
           var index = $(this).attr('href');
