@@ -90,7 +90,7 @@
       });
 
       // Remove an uploaded File from a webform component.
-      var removeWebformFile = function (element) {
+      removeWebformFile = function (element) {
         var $link = $(element).closest('li');
 
         var href = $link.find('.file-view-link').attr('href');
@@ -107,7 +107,7 @@
       };
 
       // Common function to remove duplicates from a file list.
-      var removeDuplicates = function () {
+      removeDuplicates = function () {
         var duplicates = {};
         $('.file-view-link').each(function () {
           var index = $(this).attr('href');
