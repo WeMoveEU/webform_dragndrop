@@ -37,3 +37,30 @@ function webform_dragndrop_menu() {
 
   return $items;
 }
+
+/**
+ * Implements hook_help().
+ */
+function webform_dragndrop_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#webform_dragndrop':
+      $output = '<h2>' . t('Webform Dragndrop') . '</h2>';
+      $output .= '<p>' . t("The webform dragndrop module extends the webform file component to include a dragndrop interface") . '<p>';
+      $output .= '<h3>' . t('Configuration') . '</h3>';
+      $output .= '<ul><li>' . t("Configure user permissions for webform dragndrop") . '</li>';
+      $output .= '<li>' . t("Add the 'Drag and drop upload element' component to any webform") . '</li>';
+      $output .= '<li>' . t("Edit the configuration for this component and save") . '</li></ul>';
+      return $output;
+  }
+}
+
+/** Implements hook_permission().
+ */
+function webform_dragndrop_permission() {
+  return array(
+    'allow webform dragndrop uploads' => array(
+      'title' => t('Allow webform dragndrop uploads'),
+      'description' => t('Determine whether a user can upload files via a webform drag and drop interface.'),
+    )
+  );
+}
