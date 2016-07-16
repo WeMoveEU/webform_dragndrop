@@ -5,7 +5,7 @@
  */
 
 /**
- * Implements hook_webform_component_info.
+ * Implements hook_webform_component_info().
  */
 function webform_dragndrop_webform_component_info() {
   $components = array();

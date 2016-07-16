@@ -22,7 +22,7 @@ function _webform_defaults_dragndrop() {
           'pdf',
           'docx',
           'doc',
-          'rtf'
+          'rtf',
         ),
         'addextensions' => '',
         'size' => '2 MB',
@@ -43,144 +43,142 @@ function _webform_defaults_dragndrop() {
  * Implements _webform_edit_component().
  */
 function _webform_edit_dragndrop($component) {
-    module_load_include('inc', 'webform', 'components/file');
+  module_load_include('inc', 'webform', 'components/file');
 
-    $form = array();
-    $form['#element_validate'] = array('_webform_edit_file_check_directory');
-    $form['#after_build'] = array('_webform_edit_file_check_directory');
+  $form = array();
+  $form['#element_validate'] = array('_webform_edit_file_check_directory');
+  $form['#after_build'] = array('_webform_edit_file_check_directory');
 
-    $form['validation']['size'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Max upload size'),
-      '#default_value' => $component['extra']['filtering']['size'],
-      '#description' => t('Enter the max file size a user may upload such as 2 MB or 800 KB. Your server has a max upload size of @size.', array('@size' => format_size(file_upload_max_size()))),
-      '#size' => 10,
-      '#parents' => array('extra', 'filtering', 'size'),
-      '#element_validate' => array('_webform_edit_file_size_validate'),
-      '#weight' => 1,
-    );
+  $form['validation']['size'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Max upload size'),
+    '#default_value' => $component['extra']['filtering']['size'],
+    '#description' => t('Enter the max file size a user may upload such as 2 MB or 800 KB. Your server has a max upload size of @size.', array('@size' => format_size(file_upload_max_size()))),
+    '#size' => 10,
+    '#parents' => array('extra', 'filtering', 'size'),
+    '#element_validate' => array('_webform_edit_file_size_validate'),
+    '#weight' => 1,
+  );
 
-    $form['validation']['extensions'] = array(
-      '#element_validate' => array('_webform_edit_file_extensions_validate'),
-      '#parents' => array('extra', 'filtering'),
-      '#theme' => 'webform_edit_file_extensions',
-      '#theme_wrappers' => array('form_element'),
-      '#title' => t('Allowed file extensions'),
-      '#attached' => array(
-        'js' => array(drupal_get_path('module', 'webform') . '/js/webform-admin.js'),
-        'css' => array(drupal_get_path('module', 'webform') . '/css/webform-admin.css'),
-      ),
-      '#type' => 'webform_file_extensions',
-      '#weight' => 2,
-    );
+  $form['validation']['extensions'] = array(
+    '#element_validate' => array('_webform_edit_file_extensions_validate'),
+    '#parents' => array('extra', 'filtering'),
+    '#theme' => 'webform_edit_file_extensions',
+    '#theme_wrappers' => array('form_element'),
+    '#title' => t('Allowed file extensions'),
+    '#attached' => array(
+      'js' => array(drupal_get_path('module', 'webform') . '/js/webform-admin.js'),
+      'css' => array(drupal_get_path('module', 'webform') . '/css/webform-admin.css'),
+    ),
+    '#type' => 'webform_file_extensions',
+    '#weight' => 2,
+  );
 
-    // Find the list of all currently valid extensions.
-    $current_types = isset($component['extra']['filtering']['types']) ? $component['extra']['filtering']['types'] : array();
+  // Find the list of all currently valid extensions.
+  $current_types = isset($component['extra']['filtering']['types']) ? $component['extra']['filtering']['types'] : array();
 
-    $types = array('gif', 'jpg', 'png');
-    $form['validation']['extensions']['types']['webimages'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Web images'),
-      '#options' => drupal_map_assoc($types),
-      '#default_value' => array_intersect($current_types, $types),
-    );
+  $types = array('gif', 'jpg', 'png');
+  $form['validation']['extensions']['types']['webimages'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Web images'),
+    '#options' => drupal_map_assoc($types),
+    '#default_value' => array_intersect($current_types, $types),
+  );
 
-    $types = array('bmp', 'eps', 'tif', 'pict', 'psd');
-    $form['validation']['extensions']['types']['desktopimages'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Desktop images'),
-      '#options' => drupal_map_assoc($types),
-      '#default_value' => array_intersect($current_types, $types),
-    );
+  $types = array('bmp', 'eps', 'tif', 'pict', 'psd');
+  $form['validation']['extensions']['types']['desktopimages'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Desktop images'),
+    '#options' => drupal_map_assoc($types),
+    '#default_value' => array_intersect($current_types, $types),
+  );
 
-    $types = array('txt', 'rtf', 'html', 'pdf', 'doc', 'docx', 'odt', 'ppt', 'pptx', 'odp', 'xls', 'xlsx', 'ods', 'xml');
-    $form['validation']['extensions']['types']['documents'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Documents'),
-      '#options' => drupal_map_assoc($types),
-      '#default_value' => array_intersect($current_types, $types),
-    );
+  $types = array(
+    'txt',
+    'rtf',
+    'html',
+    'pdf',
+    'doc',
+    'docx',
+    'odt',
+    'ppt',
+    'pptx',
+    'odp',
+    'xls',
+    'xlsx',
+    'ods',
+    'xml',
+  );
 
-    $types = array('avi', 'mov', 'mp3', 'ogg', 'wav');
-    $form['validation']['extensions']['types']['media'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Media'),
-      '#options' => drupal_map_assoc($types),
-      '#default_value' => array_intersect($current_types, $types),
-    );
+  $form['validation']['extensions']['types']['documents'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Documents'),
+    '#options' => drupal_map_assoc($types),
+    '#default_value' => array_intersect($current_types, $types),
+  );
 
-    $types = array('bz2', 'dmg', 'gz', 'jar', 'rar', 'sit', 'tar', 'zip');
-    $form['validation']['extensions']['types']['archives'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Archives'),
-      '#options' => drupal_map_assoc($types),
-      '#default_value' => array_intersect($current_types, $types),
-    );
+  $types = array('avi', 'mov', 'mp3', 'ogg', 'wav');
+  $form['validation']['extensions']['types']['media'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Media'),
+    '#options' => drupal_map_assoc($types),
+    '#default_value' => array_intersect($current_types, $types),
+  );
 
-    $form['validation']['extensions']['addextensions'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Additional extensions'),
-      '#default_value' => $component['extra']['filtering']['addextensions'],
-      '#description' => t('Enter a list of additional file extensions for this upload field, separated by commas.<br /> Entered extensions will be appended to checked items above.'),
-      '#size' => 20,
-      '#weight' => 3,
-    );
+  $types = array('bz2', 'dmg', 'gz', 'jar', 'rar', 'sit', 'tar', 'zip');
+  $form['validation']['extensions']['types']['archives'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Archives'),
+    '#options' => drupal_map_assoc($types),
+    '#default_value' => array_intersect($current_types, $types),
+  );
 
-    $scheme_options = array();
-    foreach (file_get_stream_wrappers(STREAM_WRAPPERS_WRITE_VISIBLE) as $scheme => $stream_wrapper) {
-      $scheme_options[$scheme] = $stream_wrapper['name'];
-    }
-    $form['extra']['scheme'] = array(
-      '#type' => 'radios',
-      '#title' => t('Upload destination'),
-      '#options' => $scheme_options,
-      '#default_value' => $component['extra']['scheme'],
-      '#description' => t('Private file storage has significantly more overhead than public files, but restricts file access to users who can view submissions.'),
-      '#weight' => 4,
-      '#access' => count($scheme_options) > 1,
-    );
-    $form['extra']['directory'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Upload directory'),
-      '#default_value' => $component['extra']['directory'],
-      '#description' => t('You may optionally specify a sub-directory to store your files.'),
-      '#weight' => 5,
-      '#field_prefix' => 'webform/',
-    );
+  $form['validation']['extensions']['addextensions'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Additional extensions'),
+    '#default_value' => $component['extra']['filtering']['addextensions'],
+    '#description' => t('Enter a list of additional file extensions for this upload field, separated by commas.<br /> Entered extensions will be appended to checked items above.'),
+    '#size' => 20,
+    '#weight' => 3,
+  );
 
-    $form['display']['progress_indicator'] = array(
-      '#type' => 'radios',
-      '#title' => t('Progress indicator'),
-      '#options' => array(
-        'throbber' => t('Throbber'),
-        'bar' => t('Bar with progress meter'),
-      ),
-      '#default_value' => $component['extra']['progress_indicator'],
-      '#description' => t('The throbber display does not show the status of uploads but takes up less space. The progress bar is helpful for monitoring progress on large uploads.'),
-      '#weight' => 16,
-      '#access' => file_progress_implementation(),
-      '#parents' => array('extra', 'progress_indicator'),
-    );
-
-    return $form;
-}
-
-/**
- * A Form API element validate function to check filesize is valid.
- */
-function _webform_edit_dragndrop_size_validate($element) {
-  if (!empty($element['#value'])) {
-    $set_filesize = parse_size($element['#value']);
-    if ($set_filesize == FALSE) {
-      form_error($element, t('File size @value is not a valid filesize. Use a value such as 2 MB or 800 KB.', array('@value' => $element['#value'])));
-    }
-    else {
-      $max_filesize = parse_size(file_upload_max_size());
-      if ($max_filesize < $set_filesize) {
-        form_error($element, t('An upload size of @value is too large, you are allow to upload files @max or less.', array('@value' => $element['#value'], '@max' => format_size($max_filesize))));
-      }
-    }
+  $scheme_options = array();
+  foreach (file_get_stream_wrappers(STREAM_WRAPPERS_WRITE_VISIBLE) as $scheme => $stream_wrapper) {
+    $scheme_options[$scheme] = $stream_wrapper['name'];
   }
+  $form['extra']['scheme'] = array(
+    '#type' => 'radios',
+    '#title' => t('Upload destination'),
+    '#options' => $scheme_options,
+    '#default_value' => $component['extra']['scheme'],
+    '#description' => t('Private file storage has significantly more overhead than public files, but restricts file access to users who can view submissions.'),
+    '#weight' => 4,
+    '#access' => count($scheme_options) > 1,
+  );
+  $form['extra']['directory'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Upload directory'),
+    '#default_value' => $component['extra']['directory'],
+    '#description' => t('You may optionally specify a sub-directory to store your files.'),
+    '#weight' => 5,
+    '#field_prefix' => 'webform/',
+  );
+
+  $form['display']['progress_indicator'] = array(
+    '#type' => 'radios',
+    '#title' => t('Progress indicator'),
+    '#options' => array(
+      'throbber' => t('Throbber'),
+      'bar' => t('Bar with progress meter'),
+    ),
+    '#default_value' => $component['extra']['progress_indicator'],
+    '#description' => t('The throbber display does not show the status of uploads but takes up less space. The progress bar is helpful for monitoring progress on large uploads.'),
+    '#weight' => 16,
+    '#access' => file_progress_implementation(),
+    '#parents' => array('extra', 'progress_indicator'),
+  );
+
+  return $form;
 }
 
 /**
@@ -188,7 +186,7 @@ function _webform_edit_dragndrop_size_validate($element) {
  */
 function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
-  $upload_text = variable_get('webform_drag_and_drop_upload_text', 'or drag and drop a file here');
+  $upload_text = variable_get('webform_dragndrop_upload_text', 'or drag and drop a file here');
 
   $js_setting = array(
     'dndText' =>  $upload_text,
@@ -275,7 +273,7 @@ function _webform_delete_dragndrop($component, $value) {
  */
 function _webform_attachments_dragndrop($component, $value) {
   $file = (array) webform_get_dragnrop_file($value[0]);
-  //This is necessary until the next release of mimemail is out, see [#1388786]
+  // This is necessary until the next release of mimemail is out, see [#1388786].
   $file['filepath'] = $file['uri'];
   $files = array($file);
   return $files;
@@ -309,7 +307,7 @@ function _webform_analysis_dragndrop($component, $sids = array()) {
 
   $rows[0] = array(t('Left Blank'), ($submissions - $nonblanks));
   $rows[1] = array(t('User uploaded file'), $nonblanks);
-  $other[0] = array(t('Average uploaded file size'), ($sizetotal != 0 ? (int) (($sizetotal/$nonblanks)/1024) . ' KB' : '0'));
+  $other[0] = array(t('Average uploaded file size'), ($sizetotal != 0 ? (int) (($sizetotal / $nonblanks) / 1024) . ' KB' : '0'));
   return array(
     'table_rows' => $rows,
     'other_data' => $other,
@@ -348,6 +346,12 @@ function _webform_csv_data_dragndrop($component, $export_options, $value) {
   $file = webform_get_dragnrop_file($value[0]);
   return empty($file->filename) ? array('', '') : array(webform_file_url($file->uri), (int) ($file->filesize/1024));
 }
+
+/**
+ * A function to load a file.
+ *  @param  string $fid
+ *   A file id.
+ */
 function webform_get_dragnrop_file($fid) {
   // Simple check to prevent loading of NULL values, which throws an entity
   // system error.

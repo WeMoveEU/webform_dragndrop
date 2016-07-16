@@ -1,3 +1,6 @@
+/**
+ * JS for the dragndrop webform element.
+ */
 (function ($) {
   /**
    * Webform Drag and Drop.
@@ -43,7 +46,7 @@
       }
 
       // Position the input element under the mouse cursor on drag.
-      $dropZone.on('dragover', function(e) {
+      $dropZone.on('dragover', function (e) {
         e.preventDefault();
         var originalEvent = e.originalEvent;
 
@@ -54,26 +57,26 @@
       });
 
       // Launch the file browser if a user clicks inside the droppable area.
-      $dropZone.off().on('click', function() {
+      $dropZone.off().on('click', function () {
         $(this).closest('.form-managed-file').find('input[type=file]').click();
       });
 
       // Prevent file upload if the element is disabled.
-      $inputFile.on('drop', function() {
+      $inputFile.on('drop', function () {
         if ($dropZone.hasClass('disabled')) {
           return false;
         }
       });
 
       // When a file has been added, upload it.
-      $('.webform-component-dragndrop input.form-file').change(function() {
-        setTimeout(function() {
+      $('.webform-component-dragndrop input.form-file').change(function () {
+        setTimeout(function () {
           $('.webform-component-dragndrop input[value=Upload]').mousedown();
         }, 100);
       });
 
       // Remove an uploaded File from a webform component.
-      removeWebformFile = function(element) {
+      removeWebformFile = function (element) {
         var $link = $(element).closest('li');
 
         var href = $link.find('.file-view-link').attr('href');
@@ -90,9 +93,9 @@
       }
 
       // Common function to remove duplicates from a file list.
-      removeDuplicates = function() {
+      removeDuplicates = function () {
         var duplicates = {};
-        $('.file-view-link').each(function() {
+        $('.file-view-link').each(function () {
           var index = $(this).attr('href');
           if (duplicates[index]) {
             $(this).closest('li').remove();
