@@ -10,13 +10,24 @@
       var $element = $('.webform-component-dragndrop .form-managed-file');
       var uploadText = Drupal.settings.dndText;
 
+      // Check for IE here. This method of dragging a file into the input field
+      // is incompatible with these browsers, so display the default file input
+      // field.
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf('MSIE ');
+      var trident = ua.indexOf('Trident/');
+
+      if (msie > 0 || trident > 0) {
+        return false;
+      }
+
       // Hide the input controls.
       $element.find('input').css({'position' : 'absolute', 'opacity' : '0'});
       $element.find('.form-submit, .file').addClass('element-invisible');
 
       // Build the droppable area.
       var droppable = '<div class="webform-file-list"></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">\n\
-        <div class="droppable-message"><span>' + uploadText + "</span></div></div>";
+        <div class="droppable-message"><span>' + uploadText + '</span></div></div>';
 
       // Add the droppable area to our element.
       $element.once().append(droppable);
@@ -53,11 +64,11 @@
         var x = originalEvent.pageX;
         var y = originalEvent.pageY;
 
-        $inputFile.offset({ top: y - 15, left: x - 100 })
+        $inputFile.offset({top: y - 15, left: x - 100});
       });
 
       // Launch the file browser if a user clicks inside the droppable area.
-      $dropZone.off().on('click', function () {
+      $dropZone.once().on('click', function () {
         $(this).closest('.form-managed-file').find('input[type=file]').click();
       });
 
@@ -90,7 +101,7 @@
 
         // Remove the file link from the list.
         $link.remove();
-      }
+      };
 
       // Common function to remove duplicates from a file list.
       removeDuplicates = function () {
@@ -104,7 +115,7 @@
             duplicates[index] = true;
           }
         });
-      }
+      };
     }
   };
 }(jQuery));
