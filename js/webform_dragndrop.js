@@ -1,7 +1,9 @@
 /**
- * JS for the dragndrop webform element.
+ * @file
+ * JS for the webform dragndrop component.
  */
 (function ($) {
+
   /**
    * Webform Drag and Drop.
    */
@@ -22,7 +24,7 @@
       }
 
       // Hide the input controls.
-      $element.find('input').css({'position' : 'absolute', 'opacity' : '0'});
+      $element.find('input').css({'position': 'absolute', 'opacity': '0'});
       $element.find('.form-submit, .file').addClass('element-invisible');
 
       // Build the droppable area.

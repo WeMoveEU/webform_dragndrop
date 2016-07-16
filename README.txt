@@ -1,4 +1,5 @@
-This module adds a drag and drop element to webform components. It's essentially an extension of the default webform file component.
+This module adds a drag and drop element to webform components. It's
+essentially an extension of the default webform file component.
 
 Requirements
 
@@ -13,5 +14,6 @@ Quick Start
 
 Note from a Developer
 
-As IE doesn't support this method of dragging files into an input type file, the element isn't displayed for these users, instead replaced with a default
+As IE doesn't support this method of dragging files into an input type file,
+the element isn't displayed for these users, instead replaced with a default
 file input.

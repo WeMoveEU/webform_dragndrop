@@ -189,7 +189,7 @@ function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   $upload_text = variable_get('webform_dragndrop_upload_text', 'or drag and drop a file here');
 
   $js_setting = array(
-    'dndText' =>  $upload_text,
+    'dndText' => $upload_text,
   );
 
   drupal_add_js($js_setting, 'setting');
@@ -273,11 +273,13 @@ function _webform_delete_dragndrop($component, $value) {
  */
 function _webform_attachments_dragndrop($component, $value) {
   $file = (array) webform_get_dragnrop_file($value[0]);
-  // This is necessary until the next release of mimemail is out, see [#1388786].
+  // This is necessary until the next release of mimemail is out, see
+  // [#1388786].
   $file['filepath'] = $file['uri'];
   $files = array($file);
   return $files;
 }
+
 /**
  * Implements _webform_analysis_component().
  */
@@ -322,7 +324,7 @@ function _webform_table_dragndrop($component, $value) {
   $file = webform_get_dragnrop_file($value[0]);
   if (!empty($file->fid)) {
     $output = '<a href="' . webform_file_url($file->uri) . '">' . check_plain(webform_file_name($file->uri)) . '</a>';
-    $output .= ' (' . (int) ($file->filesize/1024) . ' KB)';
+    $output .= ' (' . (int) ($file->filesize / 1024) . ' KB)';
   }
   return $output;
 }
@@ -344,12 +346,13 @@ function _webform_csv_headers_dragndrop($component, $export_options) {
  */
 function _webform_csv_data_dragndrop($component, $export_options, $value) {
   $file = webform_get_dragnrop_file($value[0]);
-  return empty($file->filename) ? array('', '') : array(webform_file_url($file->uri), (int) ($file->filesize/1024));
+  return empty($file->filename) ? array('', '') : array(webform_file_url($file->uri), (int) ($file->filesize / 1024));
 }
 
 /**
  * A function to load a file.
- *  @param  string $fid
+ *
+ *  @param string $fid
  *   A file id.
  */
 function webform_get_dragnrop_file($fid) {
