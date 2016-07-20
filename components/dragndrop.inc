@@ -186,7 +186,7 @@ function _webform_edit_dragndrop($component) {
  */
 function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   if (!user_access('allow webform dragndrop uploads')) {
-    return '';
+    return array('');
   }
 
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
