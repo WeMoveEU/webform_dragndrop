@@ -248,11 +248,13 @@ function _webform_submit_dragndrop($component, $value) {
  * Implements _webform_display_component().
  */
 function _webform_display_dragndrop($component, $value, $format = 'html') {
+  module_load_include('inc', 'webform', 'components/file');
+
   $fid = isset($value[0]) ? $value[0] : NULL;
   return array(
     '#title' => $component['name'],
     '#title_display' => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',
-    '#value' => $fid ? webform_get_dragnrop_file($fid) : NULL,
+    '#value' => $fid ? webform_get_file($fid) : NULL,
     '#weight' => $component['weight'],
     '#theme' => 'webform_display_file',
     '#theme_wrappers' => $format == 'text' ? array('webform_element_text') : array('webform_element'),
@@ -265,8 +267,10 @@ function _webform_display_dragndrop($component, $value, $format = 'html') {
  * Implements _webform_delete_component().
  */
 function _webform_delete_dragndrop($component, $value) {
+  module_load_include('inc', 'webform', 'components/file');
+
   // Delete an individual submission file.
-  if (!empty($value[0]) && ($file = webform_get_dragnrop_file($value[0]))) {
+  if (!empty($value[0]) && ($file = webform_get_file($value[0]))) {
     file_usage_delete($file, 'webform');
     file_delete($file);
   }
@@ -276,7 +280,8 @@ function _webform_delete_dragndrop($component, $value) {
  * Implements _webform_attachments_component().
  */
 function _webform_attachments_dragndrop($component, $value) {
-  $file = (array) webform_get_dragnrop_file($value[0]);
+  module_load_include('inc', 'webform', 'components/file');
+  $file = (array) webform_get_file($value[0]);
   // This is necessary until the next release of mimemail is out, see
   // [#1388786].
   $file['filepath'] = $file['uri'];
@@ -288,6 +293,7 @@ function _webform_attachments_dragndrop($component, $value) {
  * Implements _webform_analysis_component().
  */
 function _webform_analysis_dragndrop($component, $sids = array()) {
+  module_load_include('inc', 'webform', 'components/file');
   $query = db_select('webform_submitted_data', 'wsd', array('fetch' => PDO::FETCH_ASSOC))
     ->fields('wsd', array('no', 'data'))
     ->condition('nid', $component['nid'])
@@ -303,7 +309,7 @@ function _webform_analysis_dragndrop($component, $sids = array()) {
 
   $result = $query->execute();
   foreach ($result as $data) {
-    $file = webform_get_dragnrop_file($data['data']);
+    $file = webform_get_file($data['data']);
     if (isset($file->filesize)) {
       $nonblanks++;
       $sizetotal += $file->filesize;
@@ -324,10 +330,10 @@ function _webform_analysis_dragndrop($component, $sids = array()) {
  * Implements _webform_table_component().
  */
 function _webform_table_dragndrop($component, $value) {
-  $output = '';
-  $file = webform_get_dragnrop_file($value[0]);
-
   module_load_include('inc', 'webform', 'components/file');
+  $output = '';
+  $file = webform_get_file($value[0]);
+
   if (!empty($file->fid)) {
     $output = '<a href="' . webform_file_url($file->uri) . '">' . check_plain(webform_file_name($file->uri)) . '</a>';
     $output .= ' (' . (int) ($file->filesize / 1024) . ' KB)';
@@ -351,19 +357,7 @@ function _webform_csv_headers_dragndrop($component, $export_options) {
  * Implements _webform_csv_data_component().
  */
 function _webform_csv_data_dragndrop($component, $export_options, $value) {
-  $file = webform_get_dragnrop_file($value[0]);
   module_load_include('inc', 'webform', 'components/file');
+  $file = webform_get_file($value[0]);
   return empty($file->filename) ? array('', '') : array(webform_file_url($file->uri), (int) ($file->filesize / 1024));
-}
-
-/**
- * A function to load a file.
- *
- * @param string $fid
- *   A file id.
- */
-function webform_get_dragnrop_file($fid) {
-  // Simple check to prevent loading of NULL values, which throws an entity
-  // system error.
-  return $fid ? file_load($fid) : FALSE;
 }
