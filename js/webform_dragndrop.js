@@ -30,8 +30,8 @@
       $element.find('.form-submit, .file').addClass('element-invisible');
 
       // Build the droppable area.
-      var droppable = '<div class="webform-file-list"></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">\n\
-        <div class="droppable-message"><span>' + uploadText + '</span></div></div>';
+      var droppable = '<div class="webform-file-list"></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">';
+      droppable += '<div class="droppable-message"><span>' + uploadText + '</span></div></div>';
 
       // Add the droppable area to our element.
       $element.once().append(droppable);
@@ -49,9 +49,9 @@
         var href = $file.attr('href');
         var filename = $file.html();
 
-        var cvRow = '<li><span class="uploaded-file"><a class="file-view-link" target="_blank" href="' + href + '">' + filename + '</a></span>\n\
-          <span class="upload-component"><a class="remove-link webform-file managed-file dnd" href="javascript:void(0);">' + Drupal.t('Remove') + '</a>\n\
-          <a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
+        var cvRow = '<li><span class="uploaded-file"><a class="file-view-link" target="_blank" href="' + href + '">' + filename + '</a></span>';
+        cvRow +=  '<span class="upload-component"><a class="remove-link webform-file managed-file dnd" href="javascript:void(0);">' + Drupal.t('Remove') + '</a>'
+        cvRow +=  '<a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
 
         // Add this file to the list.
         $('.webform-file-list').append(cvRow);
