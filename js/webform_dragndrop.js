@@ -50,8 +50,8 @@
         var filename = $file.html();
 
         var cvRow = '<li><span class="uploaded-file"><a class="file-view-link" target="_blank" href="' + href + '">' + filename + '</a></span>';
-        cvRow +=  '<span class="upload-component"><a class="remove-link webform-file managed-file dnd" href="javascript:void(0);">' + Drupal.t('Remove') + '</a>'
-        cvRow +=  '<a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
+        cvRow += '<span class="upload-component"><a class="remove-link webform-file managed-file dnd" href="javascript:void(0);">' + Drupal.t('Remove') + '</a>';
+        cvRow += '<a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
 
         // Add this file to the list.
         $('.webform-file-list').append(cvRow);
