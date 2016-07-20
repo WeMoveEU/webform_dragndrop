@@ -326,6 +326,8 @@ function _webform_analysis_dragndrop($component, $sids = array()) {
 function _webform_table_dragndrop($component, $value) {
   $output = '';
   $file = webform_get_dragnrop_file($value[0]);
+
+  module_load_include('inc', 'webform', 'components/file');
   if (!empty($file->fid)) {
     $output = '<a href="' . webform_file_url($file->uri) . '">' . check_plain(webform_file_name($file->uri)) . '</a>';
     $output .= ' (' . (int) ($file->filesize / 1024) . ' KB)';
@@ -350,6 +352,7 @@ function _webform_csv_headers_dragndrop($component, $export_options) {
  */
 function _webform_csv_data_dragndrop($component, $export_options, $value) {
   $file = webform_get_dragnrop_file($value[0]);
+  module_load_include('inc', 'webform', 'components/file');
   return empty($file->filename) ? array('', '') : array(webform_file_url($file->uri), (int) ($file->filesize / 1024));
 }
 
