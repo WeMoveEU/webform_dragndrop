@@ -54,13 +54,14 @@ function webform_dragndrop_help($path, $arg) {
   }
 }
 
-/** Implements hook_permission().
+/**
+ * Implements hook_permission().
  */
 function webform_dragndrop_permission() {
   return array(
     'allow webform dragndrop uploads' => array(
       'title' => t('Allow webform dragndrop uploads'),
       'description' => t('Determine whether a user can upload files via a webform drag and drop interface.'),
-    )
+    ),
   );
 }
