@@ -24,6 +24,11 @@
   display: none;
 }
 
+.webform-component-dragndrop .webform-file-list ul {
+  margin: 0;
+  padding: 0;
+}
+
 .webform-file-list {
   border: none;
   padding: 0;

@@ -30,7 +30,7 @@
       $element.find('.form-submit, .file').addClass('element-invisible');
 
       // Build the droppable area.
-      var droppable = '<div class="webform-file-list"></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">';
+      var droppable = '<div class="webform-file-list"><ul></ul></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">';
       droppable += '<div class="droppable-message"><span>' + uploadText + '</span></div></div>';
 
       // Add the droppable area to our element.
@@ -54,7 +54,7 @@
         cvRow += '<a class="view-link" target="_blank" href="' + href + '">' + Drupal.t('View File') + '</a></span></li>';
 
         // Add this file to the list.
-        $('.webform-file-list').append(cvRow);
+        $('.webform-file-list ul').append(cvRow);
 
         // It's possible we have duplicate files at this point, so remove them.
         var duplicates = {};
