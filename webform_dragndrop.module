@@ -65,3 +65,48 @@ function webform_dragndrop_permission() {
     ),
   );
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function webform_dragndrop_form_alter(&$form, &$form_state, $form_id) {
+  // Target webform nodes.
+  if (strpos($form['#form_id'], 'webform_client_form') !== FALSE) {
+    $path = current_path();
+
+    // Ignore the panel_content preview.
+    if (strpos($path, 'panels/ajax/editor') === FALSE && strpos($path, 'panel_content') === FALSE) {
+      $form['#after_build'][] = 'webform_dragndrop_attach_js';
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Attaches JS after a webform is built.
+ *
+ * @param $form.
+ *   A form array.
+ *
+ * @param $form_state.
+ *   The form state.
+ *
+ * @return array.
+ *   The form array.
+ */
+function webform_dragndrop_attach_js($form, $form_state) {
+  foreach($form['#node']->webform['components'] as $component) {
+    if ($component['type'] == 'dragndrop') {
+      $upload_text = variable_get('webform_dragndrop_upload_text', 'or drag and drop a file here');
+
+      $js_setting = array(
+        'dndText' => $upload_text,
+      );
+
+      drupal_add_js($js_setting, 'setting');
+      break;
+    }
+  }
+  return $form;
+}

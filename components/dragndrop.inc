@@ -190,13 +190,6 @@ function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
   }
 
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
-  $upload_text = variable_get('webform_dragndrop_upload_text', 'or drag and drop a file here');
-
-  $js_setting = array(
-    'dndText' => $upload_text,
-  );
-
-  drupal_add_js($js_setting, 'setting');
 
   // Cap the upload size according to the PHP limit.
   $max_filesize = parse_size(file_upload_max_size());
