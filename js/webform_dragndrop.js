@@ -31,7 +31,7 @@
 
       // Build the droppable area.
       var droppable = '<div class="webform-file-list"><ul></ul></div><div class="field-widget-dragndrop-upload-file"><div class="droppable">';
-      droppable += '<div class="droppable-message"><span>' + uploadText + '</span></div></div>';
+      droppable += '<div class="droppable-message"><span>' + uploadText + '</span></div></div></div>';
 
       // Add the droppable area to our element.
       $element.once().append(droppable);
