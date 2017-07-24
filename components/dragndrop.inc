@@ -200,6 +200,7 @@ function _webform_render_dragndrop($component, $value = NULL, $filter = TRUE) {
 
   $element = array(
     '#type' => 'managed_file',
+    '#theme' => 'webform_managed_file',
     '#title' => $filter ? webform_filter_xss($component['name']) : $component['name'],
     '#title_display' => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',
     '#required' => $component['required'],

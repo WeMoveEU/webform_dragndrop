@@ -110,10 +110,20 @@
       });
 
       // When a file has been added, upload it.
-      $('.webform-component-dragndrop input.form-file').change(function () {
+      $('.webform-component-dragndrop input.form-file').on('change', function(event) {
         setTimeout(function () {
-          $('.webform-component-dragndrop input[value=Upload]').mousedown();
-        }, 100);
+          // Gather the changed file upload parent.
+          var $parent = $(event.target).parent();
+
+          if ($parent.find('.error').length) {
+            // If an error exists the file will no longer be present, so don't
+            // attempt to upload.
+            return false;
+          }
+          else {
+            $('.webform-component-dragndrop input[value=Upload]').mousedown();
+          }
+        }, 1000);
       });
     }
   };
