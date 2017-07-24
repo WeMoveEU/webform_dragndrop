@@ -123,7 +123,7 @@
           else {
             $('.webform-component-dragndrop input[value=Upload]').mousedown();
           }
-        }, 1000);
+        }, 100);
       });
     }
   };
