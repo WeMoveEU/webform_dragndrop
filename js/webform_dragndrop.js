@@ -121,7 +121,7 @@
             return false;
           }
           else {
-            $('.webform-component-dragndrop input[value=Upload]').mousedown();
+            $('.webform-component-dragndrop input[type=Submit], .webform-component-dragndrop button[type=Submit]').mousedown();
           }
         }, 100);
       });
