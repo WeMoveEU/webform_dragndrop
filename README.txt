@@ -18,3 +18,7 @@ Note from the Developer
 As IE doesn't support this method of dragging files into an input type file,
 the element isn't displayed for these users, instead replaced with a default
 file input.
+
+---------------------------------------------------------------------------------
+! This module is copied from https://www.drupal.org/sandbox/aaronferris/2765191 !
+---------------------------------------------------------------------------------
