@@ -114,7 +114,7 @@
       $('.webform-component-dragndrop input.form-file').on('change', function(event) {
         setTimeout(function () {
           // Gather the changed file upload parent.
-          var $parent = $(event.target).parent();
+          var $parent = $(event.target).parents('.form-item');
 
           if ($parent.find('.error').length) {
             // If an error exists the file will no longer be present, so don't
