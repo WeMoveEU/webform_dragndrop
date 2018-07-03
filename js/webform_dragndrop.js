@@ -13,6 +13,7 @@
     attach: function (context, settings) {
       var $element = $('.webform-component-dragndrop .form-managed-file');
       var uploadText = Drupal.settings.dndText;
+      var removeBtnValue = Drupal.settings.removeText;
 
       // Check for IE here. This method of dragging a file into the input field
       // is incompatible with these browsers, so display the default file input
@@ -35,12 +36,12 @@
 
       // Add the droppable area to our element.
       $element.once().append(droppable);
+      
 
       var $dropZone = $('.droppable');
       var $inputFile = $element.find('input.form-file');
 
       if ($element.find('.file').length) {
-
         // We can only upload one file with a webform file input, so disable the
         // drag and drop element if a file already exists.
         $dropZone.addClass('disabled');
@@ -80,7 +81,7 @@
         var $target = $(".webform-component-dragndrop .file a[href='" + href + "']");
 
         // Remove the file from the field.
-        var $submit = $target.closest('.form-managed-file').find('.form-submit[value="Remove"]');
+        var $submit = $target.closest('.form-managed-file').find('.form-submit[value="'+removeBtnValue+'"]');
         $submit.mousedown();
 
         // Remove the file link from the list.
