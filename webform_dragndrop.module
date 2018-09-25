@@ -110,3 +110,24 @@ function webform_dragndrop_attach_js($form, $form_state) {
   }
   return $form;
 }
+
+/**
+ * Implements hook_webform_submission_presave().
+ */
+function webform_dragndrop_webform_submission_presave($node, &$submission) {
+  $dragndrop_fids = [];
+  foreach ($node->webform['components'] as $cid => $component) {
+    if ($component['type'] == 'dragndrop') {
+      $dragndrop_fids[] = $submission->data[$cid][0];
+    }
+  }
+  if ($dragndrop_fids) {
+    if (property_exists($submission, 'file_usage')) {
+      $added_fids = $submission->file_usage['added_fids'];
+      $submission->file_usage['added_fids'] = array_merge($added_fids, $dragndrop_fids);
+    }
+    else {
+      $submission->file_usage['added_fids'] = $dragndrop_fids;
+    }
+  }
+}
